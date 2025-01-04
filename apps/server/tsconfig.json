@@ -1,0 +1,19 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "target": "ES2017",
+    "baseUrl": ".",
+    "paths": {
+      "@my/api": ["../../packages/api/dist"],
+      "@my/db": ["../../packages/db/dist"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../packages/api" },
+    { "path": "../../packages/db" }
+  ]
+}
