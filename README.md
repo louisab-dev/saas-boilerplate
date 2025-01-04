@@ -1,84 +1,152 @@
-# Turborepo starter
+# Self-Hosted SaaS Boilerplate
 
-This is an official starter Turborepo.
+A production-ready boilerplate for building self-hosted SaaS applications,
+designed for easy deployment on [Coolify](https://coolify.io/). This monorepo
+template provides a modern, scalable architecture using Next.js, tRPC, Express,
+and PostgreSQL.
 
-## Using this example
+## 🏗 Architecture
 
-Run the following command:
+- **Frontend**: Next.js application for a fast, SEO-friendly web interface
+- **Backend**: Express server with tRPC for type-safe API communications
+- **Database**: PostgreSQL for reliable data storage
+- **Cache**: Redis for session management and rate limiting
+- **Monitoring**: Built-in health checks for all services
+- **Developer Tools**: Prisma Studio for database management
 
-```sh
-npx create-turbo@latest
-```
+## 🚀 Features
 
-## What's inside?
+- **Type Safety**: End-to-end type safety with TypeScript and tRPC
+- **Scalability**: Separate API and web services for independent scaling
+- **Development Tools**:
+  - Prisma Studio for database management
+  - tRPC Panel for API exploration
+  - Hot reloading for rapid development
+- **Security**:
+  - Rate limiting (Redis-backed)
+  - CORS configuration
+  - Environment-based security controls
+- **Infrastructure**:
+  - Docker Compose setup for local development
+  - Production-ready Dockerfiles
+  - Health checks for all services
+  - Volume persistence for databases
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 📁 Project Structure
 
 ```
-cd my-turborepo
-pnpm build
+.
+├── apps/
+│   ├── web/          # Next.js frontend application
+│   └── server/       # Express + tRPC API server
+├── packages/
+│   ├── api/          # tRPC router definitions
+│   └── db/          # Database schema and migrations
+├── docker-compose.yml
+└── package.json
 ```
 
-### Develop
+## ⚙️ Setup & Development
 
-To develop all apps and packages, run the following command:
+1. Clone the repository:
 
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Set up environment variables:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start the development environment:
+   ```bash
+   docker compose up
+   ```
+
+This will start:
+
+- Next.js frontend on `http://localhost:3000`
+- tRPC API on `http://localhost:4000`
+- Prisma Studio on `http://localhost:5555`
+- PostgreSQL on `localhost:5432`
+- Redis on `localhost:6379`
+
+## 🌐 Deployment
+
+This boilerplate is designed to be easily deployed on
+[Coolify](https://coolify.io/).
+
+### Prerequisites
+
+- A Coolify instance
+- PostgreSQL database
+- Redis instance (optional, but recommended for production)
+
+### Configuration
+
+1. Fork this repository
+2. Set up necessary environment variables in Coolify
+3. Deploy using Coolify's GitHub integration
+
+## ⚠️ Current Limitations
+
+- **Authentication**: Supabase Auth integration is planned but not yet
+  implemented in the Docker Compose setup
+- **Email Services**: Email service integration pending
+- **File Storage**: File storage solution not yet implemented
+
+## 🛣️ Roadmap
+
+- [ ] Complete Supabase Auth integration
+- [ ] Add email service integration
+- [ ] Implement file storage solution
+- [ ] Add monitoring and logging stack
+- [ ] Create backup solutions
+- [ ] Add CI/CD templates
+
+## 📝 Environment Variables
+
+Required environment variables:
+
+```bash
+# Database
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+POSTGRES_PORT=
+
+# API
+API_PORT=
+API_URL=
+AUTH_JWT_SECRET=
+NODE_ENV=
+
+# Redis
+REDIS_PORT=
+
+# tRPC Panel (optional)
+TRPC_PANEL_USERNAME=
+TRPC_PANEL_PASSWORD=
+
+# Supabase (pending implementation)
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
 ```
-cd my-turborepo
-pnpm dev
-```
 
-### Remote Caching
+## 🤝 Contributing
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## 📜 License
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+This project is licensed under the MIT License.
