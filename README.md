@@ -51,8 +51,8 @@ and PostgreSQL.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/louisab-dev/saas-boilerplate.git
+   cd saas-boilerplate
    ```
 
 2. Install dependencies:
