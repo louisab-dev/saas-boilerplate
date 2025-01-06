@@ -9,17 +9,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { supabase } from "@/lib/auth/client";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 // Zod Schemas
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 const forgotPasswordSchema = z.object({
@@ -36,6 +39,8 @@ export function AuthForm({
 }: React.ComponentProps<"div">) {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const {
     register: loginRegister,
@@ -61,19 +66,36 @@ export function AuthForm({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  const onLoginSubmit = (data: LoginFormData) => {
+  const onLoginSubmit = async (data: LoginFormData) => {
     console.log("Login data:", data);
-    // Handle login logic here
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      console.log("Error:", error);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      router.push("/");
+    }
+
+    console.log("Signin data: ", signInData);
   };
 
   const onSignupSubmit = (data: SignUpFormData) => {
     console.log("Signup data:", data);
-    // Handle signup logic here
+    // Here we want to have our own onboarding logic
+    alert("Not implemented yet!");
   };
 
   const onForgotSubmit = (data: ForgotPasswordData) => {
     console.log("Forgot password data:", data);
-    // Handle password reset logic here
+    alert("Not implemented yet!");
   };
 
   return (
