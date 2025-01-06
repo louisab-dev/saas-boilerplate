@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8f9fa"/>
+  
+  <!-- Decorative waves -->
+  <path d="M0 600 C 400 450, 800 750, 1200 600 L 1200 800 L 0 800 Z" fill="#e9ecef" opacity="0.5"/>
+  <path d="M0 650 C 400 500, 800 800, 1200 650 L 1200 800 L 0 800 Z" fill="#dee2e6" opacity="0.5"/>
+  <path d="M0 700 C 400 550, 800 850, 1200 700 L 1200 800 L 0 800 Z" fill="#ced4da" opacity="0.5"/>
+
+  <!-- Abstract shapes -->
+  <circle cx="300" cy="200" r="100" fill="#e9ecef" opacity="0.3"/>
+  <circle cx="900" cy="300" r="150" fill="#dee2e6" opacity="0.3"/>
+  <circle cx="600" cy="150" r="80" fill="#ced4da" opacity="0.3"/>
+</svg>

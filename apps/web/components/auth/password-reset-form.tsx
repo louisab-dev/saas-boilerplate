@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -8,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
+import { useI18n } from "@/locales/client";
 import { useRouter } from "next/navigation";
 
 const resetPasswordSchema = z.object({
@@ -15,12 +15,13 @@ const resetPasswordSchema = z.object({
   confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
-  path: ["confirmPassword"], // This shows the error on confirmPassword field
+  path: ["confirmPassword"],
 });
 
 type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 
 export function ResetPasswordForm() {
+  const t = useI18n();
   const {
     register,
     handleSubmit,
@@ -28,6 +29,7 @@ export function ResetPasswordForm() {
   } = useForm<ResetPasswordData>({
     resolver: zodResolver(resetPasswordSchema),
   });
+
   const { changePasswordWithEmail } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
@@ -35,12 +37,13 @@ export function ResetPasswordForm() {
   const onSubmit = async (data: ResetPasswordData) => {
     if (data.password !== data.confirmPassword) {
       toast({
-        title: "Error",
-        description: "Passwords do not match",
+        title: t("auth.passwordResetConfirm.errorTitle"),
+        description: t("auth.passwordResetConfirm.errorMismatch"),
         variant: "destructive",
       });
       return;
     }
+
     const success = await changePasswordWithEmail(data.password);
     if (success) {
       router.push("/");
@@ -51,43 +54,40 @@ export function ResetPasswordForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl font-bold">Reset Password</h1>
+          <h1 className="text-2xl font-bold">{t("auth.passwordResetConfirm.title")}</h1>
           <p className="text-balance text-muted-foreground">
-            Enter your email to reset your password
+            {t("auth.passwordResetConfirm.description")}
           </p>
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("auth.passwordResetConfirm.newPasswordLabel")}</Label>
           <Input
             id="password"
             type="password"
-            placeholder="Enter your new password"
+            placeholder={t("auth.passwordResetConfirm.newPasswordPlaceholder")}
             {...register("password")}
           />
           {errors.password && (
             <p className="text-sm text-red-500">
-              {errors.password.message}
+              {t("auth.common.passwordError")}
             </p>
           )}
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="confirm-password">{t("auth.passwordResetConfirm.confirmPasswordLabel")}</Label>
           <Input
             id="confirm-password"
             type="password"
-            placeholder="Confirm your new password"
+            placeholder={t("auth.passwordResetConfirm.confirmPasswordPlaceholder")}
             {...register("confirmPassword")}
           />
           {errors.confirmPassword && (
             <p className="text-sm text-red-500">
-              {errors.confirmPassword.message}
+              {t("auth.passwordResetConfirm.passwordMismatch")}
             </p>
           )}
         </div>
         <Button type="submit" className="w-full">
-          Reset Password
+          {t("auth.passwordResetConfirm.submitButton")}
         </Button>
       </div>
-    </form>
-  );
-}

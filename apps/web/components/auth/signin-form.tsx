@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -8,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
 import { SocialAuth } from "@/components/auth/social";
+import { useI18n } from "@/locales/client";
 import Link from "next/link";
 
 const loginSchema = z.object({
@@ -18,6 +18,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function SignInForm() {
+  const t = useI18n();
   const { signInWithEmail } = useAuth();
   const {
     register,
@@ -35,51 +36,51 @@ export function SignInForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl font-bold">Welcome back</h1>
+          <h1 className="text-2xl font-bold">{t("auth.signIn.title")}</h1>
           <p className="text-balance text-muted-foreground">
-            Login to your account
+            {t("auth.signIn.description")}
           </p>
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("auth.common.emailLabel")}</Label>
           <Input
             id="email"
             type="email"
-            placeholder="Enter your email"
+            placeholder={t("auth.common.emailPlaceholder")}
             {...register("email")}
           />
           {errors.email && (
             <p className="text-sm text-red-500">
-              {errors.email.message}
+              {t("auth.common.emailError")}
             </p>
           )}
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("auth.common.passwordLabel")}</Label>
           <Input
             id="password"
             type="password"
-            placeholder="Enter your password"
+            placeholder={t("auth.common.passwordPlaceholder")}
             {...register("password")}
           />
           {errors.password && (
             <p className="text-sm text-red-500">
-              {errors.password.message}
+              {t("auth.common.passwordError")}
             </p>
           )}
         </div>
         <Button type="submit" className="w-full">
-          Sign in
+          {t("auth.signIn.submitButton")}
         </Button>
         <SocialAuth />
         <div className="flex flex-col gap-2 text-center text-sm">
           <div className="text-muted-foreground">
-            Don&apos;t have an account?{" "}
+            {t("auth.signIn.noAccountText")}{" "}
             <Link
               href="/signup"
               className="text-muted-foreground hover:text-primary underline-offset-4 hover:underline"
             >
-              Sign up
+              {t("auth.signIn.signUpLink")}
             </Link>
           </div>
           <div className="text-muted-foreground">
@@ -87,7 +88,7 @@ export function SignInForm() {
               href="/reset-password-request"
               className="text-muted-foreground hover:text-primary underline-offset-4 hover:underline"
             >
-              Forgot your password?
+              {t("auth.signIn.forgotPasswordLink")}
             </Link>
           </div>
         </div>
