@@ -18,7 +18,7 @@ export function SidebarTop(
             <Boxes className="size-4" />
           </div>
           <div className="grid flex-1 text-left">
-            <span className="truncate font-semibold">ACME INC.</span>
+            <span className="truncate font-semibold">CHANGEME.</span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
