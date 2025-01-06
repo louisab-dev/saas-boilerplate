@@ -7,7 +7,7 @@ import { renderTrpcPanel } from "trpc-panel";
 import { initRateLimiter } from "./middleware/rate-limiter";
 import { basicAuth } from "./middleware/basic-auth";
 import { env } from "./env";
-import { getErrorHTML, getSuccessHTML } from "./utils/auth";
+import { getSuccessHTML } from "./utils/auth";
 
 const app = express();
 async function startServer() {
