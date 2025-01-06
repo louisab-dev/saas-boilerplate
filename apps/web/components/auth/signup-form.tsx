@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SocialAuth } from "@/components/auth/social";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
+// Add more if doing a more complex onboarding
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
@@ -25,10 +27,10 @@ export function SignUpForm() {
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signupSchema),
   });
+  const { signUpWithEmail } = useAuth();
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log("Signup data:", data);
-    alert("Not implemented yet!");
+  const onSubmit = async (data: SignUpFormData) => {
+    await signUpWithEmail(data.email, data.password);
   };
 
   return (
@@ -58,7 +60,7 @@ export function SignUpForm() {
           <Input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="Enter your email"
             {...register("email")}
           />
           {errors.email && (
@@ -72,6 +74,7 @@ export function SignUpForm() {
           <Input
             id="password"
             type="password"
+            placeholder="Enter your password"
             {...register("password")}
           />
           {errors.password && (

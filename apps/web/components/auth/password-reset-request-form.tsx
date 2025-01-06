@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -5,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const resetPasswordSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -12,7 +15,7 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 
-export function ResetPasswordForm() {
+export function RequestResetPasswordForm() {
   const {
     register,
     handleSubmit,
@@ -20,10 +23,10 @@ export function ResetPasswordForm() {
   } = useForm<ResetPasswordData>({
     resolver: zodResolver(resetPasswordSchema),
   });
+  const { requestPasswordResetWithEmail } = useAuth();
 
-  const onSubmit = (data: ResetPasswordData) => {
-    console.log("Reset password data:", data);
-    alert("Not implemented yet!");
+  const onSubmit = async (data: ResetPasswordData) => {
+    await requestPasswordResetWithEmail(data.email);
   };
 
   return (
@@ -40,7 +43,7 @@ export function ResetPasswordForm() {
           <Input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="Enter your email"
             {...register("email")}
           />
           {errors.email && (

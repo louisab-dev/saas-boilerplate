@@ -45,7 +45,7 @@ export function SignInForm() {
           <Input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="Enter your email"
             {...register("email")}
           />
           {errors.email && (
@@ -59,6 +59,7 @@ export function SignInForm() {
           <Input
             id="password"
             type="password"
+            placeholder="Enter your password"
             {...register("password")}
           />
           {errors.password && (
@@ -83,7 +84,7 @@ export function SignInForm() {
           </div>
           <div className="text-muted-foreground">
             <Link
-              href="/reset-password"
+              href="/reset-password-request"
               className="text-muted-foreground hover:text-primary underline-offset-4 hover:underline"
             >
               Forgot your password?
