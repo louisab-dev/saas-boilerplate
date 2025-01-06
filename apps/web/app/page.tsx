@@ -1,12 +1,8 @@
-import { Button } from "@/components/ui/button";
-
+import { ExampleComponent } from "@/components/example-component";
 export default function Home() {
   return (
     <div>
-      <Button>Click me</Button>
-      <div className="text-red-500">
-        Hello world
-      </div>
+      <ExampleComponent />
     </div>
   );
 }
