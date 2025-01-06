@@ -101,8 +101,8 @@ export function NavUser() {
                     <User className="size-4" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="grid flex-1">
-                  <span className="text-xs text-muted-foreground">
+                <div className="grid flex-1 min-w-0">
+                  <span className="truncate text-xs text-muted-foreground">
                     {user.email}
                   </span>
                 </div>
