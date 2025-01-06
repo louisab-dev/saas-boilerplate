@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { trpc } from "@/lib/trpc/client";
 import { useToast } from "./use-toast";
 import { supabase } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
@@ -9,27 +7,30 @@ import { User } from "@supabase/supabase-js";
 
 export const useAuth = () => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const signUpWithEmail = async (email: string, password: string) => {
-    const signup = trpc.auth.signup.useMutation({
-      onSuccess: () =>
-        toast({
-          title: "Success",
-          description: "You have successfully signed up",
-          variant: "success",
-        }),
-      onError: (error: any) =>
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        }),
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: `${location.origin}/api/auth/callback`,
+      },
     });
-    setLoading(true);
-    await signup.mutateAsync({ email, password });
-    setLoading(false);
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "You have successfully signed up",
+        variant: "success",
+      });
+      router.push("/signin");
+    }
   };
 
   const signOut = async () => {
@@ -68,11 +69,60 @@ export const useAuth = () => {
     }
   };
 
+  const requestPasswordResetWithEmail = async (
+    email: string,
+  ): Promise<boolean> => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${location.origin}/api/auth/password-callback`,
+    });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return false;
+    } else {
+      toast({
+        title: "Success",
+        description: "Password reset email sent",
+        variant: "success",
+      });
+      return true;
+    }
+  };
+
+  const changePasswordWithEmail = async (
+    password: string,
+  ): Promise<boolean> => {
+    const { error } = await supabase.auth.updateUser({
+      password: password,
+    });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return false;
+    } else {
+      toast({
+        title: "Success",
+        description: "Password changed",
+        variant: "success",
+      });
+      return true;
+    }
+  };
+
   return {
-    loading,
     signUpWithEmail,
     signOut,
     signInWithEmail,
     getUser,
+    requestPasswordResetWithEmail,
+    changePasswordWithEmail,
   };
 };
