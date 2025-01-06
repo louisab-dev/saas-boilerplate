@@ -1,8 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import { trpc } from "@/lib/trpc/client";
 import { useToast } from "./use-toast";
 import { supabase } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
 export const useAuth = () => {
   const { toast } = useToast();
@@ -51,10 +54,25 @@ export const useAuth = () => {
     }
   };
 
+  const getUser = async (): Promise<User | null> => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return null;
+    } else {
+      return data.user;
+    }
+  };
+
   return {
     loading,
     signUpWithEmail,
     signOut,
     signInWithEmail,
+    getUser,
   };
 };
