@@ -134,7 +134,7 @@ export function AuthForm({
                   <div className="flex flex-col items-center text-center">
                     <h1 className="text-2xl font-bold">Welcome back</h1>
                     <p className="text-balance text-muted-foreground">
-                      Login to your Acme Inc account
+                      Login to your account
                     </p>
                   </div>
                   <div className="grid gap-2">
@@ -219,7 +219,7 @@ export function AuthForm({
                   <div className="flex flex-col items-center text-center">
                     <h1 className="text-2xl font-bold">Create an account</h1>
                     <p className="text-balance text-muted-foreground">
-                      Sign up for your Acme Inc account
+                      Sign up for your account
                     </p>
                   </div>
                   <div className="grid gap-2">
