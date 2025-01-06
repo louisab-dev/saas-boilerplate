@@ -42,6 +42,18 @@ export default {
       haveAccountText: "Already have an account?",
       signInLink: "Sign in",
     },
+    signupSuccess: {
+      title: "Check Your Email",
+      defaultEmail: "your email",
+      emailSentText:
+        "We've sent a confirmation email to {email}. Please click the link in the email to activate your account.",
+      expiryNote: "The confirmation link will expire in 24 hours",
+      spamNote: "If you don't see the email, check your spam folder",
+      confirmationNote:
+        "Once you confirm your email, you'll be able to sign in to your account.",
+      loginButton: "Go to Login",
+      differentEmailLink: "Sign up with a different email",
+    },
     passwordReset: {
       title: "Reset Password",
       description: "Enter your email to reset your password",

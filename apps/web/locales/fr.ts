@@ -42,6 +42,18 @@ export default {
       haveAccountText: "Vous avez déjà un compte ?",
       signInLink: "Se connecter",
     },
+    signupSuccess: {
+      title: "Vérifiez votre e-mail",
+      defaultEmail: "votre e-mail",
+      emailSentText:
+        "Nous avons envoyé un e-mail de confirmation à {email}. Veuillez cliquer sur le lien dans l'e-mail pour activer votre compte.",
+      expiryNote: "Le lien de confirmation expirera dans 24 heures",
+      spamNote: "Si vous ne voyez pas l'e-mail, vérifiez votre dossier spam",
+      confirmationNote:
+        "Une fois votre e-mail confirmé, vous pourrez vous connecter à votre compte.",
+      loginButton: "Aller à la page de connexion",
+      differentEmailLink: "S'inscrire avec un autre e-mail",
+    },
     passwordReset: {
       title: "Réinitialiser le mot de passe",
       description: "Entrez votre e-mail pour réinitialiser votre mot de passe",
