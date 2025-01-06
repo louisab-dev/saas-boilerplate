@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Bot,
-  ChevronLeft,
-  Frame,
-  Map,
-  PieChart,
-  SquareTerminal,
-} from "lucide-react";
+import { Boxes, ChevronLeft } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavUser } from "@/components/sidebar/nav-user";
@@ -28,48 +21,50 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { User } from "@supabase/supabase-js";
-import { nan } from "zod";
+import { useI18n } from "@/locales/client";
 
-const data = {
-  navMain: [
+function getSidebarItems() {
+  const t = useI18n();
+  const data = [
     {
-      title: "Some title",
+      title: t("nav.main.firstSection"),
       url: "#",
-      icon: SquareTerminal,
+      icon: Boxes,
       isActive: true,
       items: [
         {
-          title: "Some route",
+          title: t("nav.main.firstRoute"),
           url: "#",
         },
         {
-          title: "Some other route",
+          title: t("nav.main.secondRoute"),
           url: "#",
         },
       ],
     },
     {
-      title: "Some other section",
+      title: t("nav.main.secondSection"),
       url: "#",
-      icon: Bot,
+      icon: Boxes,
       items: [
         {
-          title: "More route",
+          title: t("nav.main.thirdRoute"),
           url: "#",
         },
         {
-          title: "Some other route",
+          title: t("nav.main.fourthRoute"),
           url: "#",
         },
       ],
     },
-  ],
-};
+  ];
+  return data;
+}
 
 export function SidebarToggle(
   { toggleSidebar }: { toggleSidebar: () => void },
 ) {
+  const t = useI18n();
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
@@ -83,7 +78,7 @@ export function SidebarToggle(
         </Button>
       </TooltipTrigger>
       <TooltipContent side="right" className="flex items-center gap-2">
-        <span className="text-sm">Toggle sidebar</span>
+        <span className="text-sm">{t("nav.sidebar.toggle")}</span>
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-foreground">
           <span className="text-xs text-foreground">⌘</span>B
         </kbd>
@@ -96,6 +91,7 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar>;
 
 export function AppSidebar({ ...props }: AppSidebarProps) {
   const { toggleSidebar } = useSidebar();
+  const sidebarItems = getSidebarItems();
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -106,7 +102,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={sidebarItems} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

@@ -1,4 +1,7 @@
 export default {
+  common: {
+    error: "Error",
+  },
   example: {
     client: {
       title: "Example Client Component",
@@ -62,6 +65,31 @@ export default {
     },
     socials: {
       continueWith: "Or continue with",
+    },
+  },
+  nav: {
+    user: {
+      fetchError: "Failed to fetch user data",
+      upgradePro: "Upgrade to Pro",
+      account: "Account",
+      billing: "Billing",
+      settings: "Settings",
+      theme: "Theme",
+      themeLight: "Light",
+      themeDark: "Dark",
+      themeSystem: "System",
+      logout: "Log out",
+    },
+    sidebar: {
+      toggle: "Toggle sidebar",
+    },
+    main: {
+      firstSection: "First Section",
+      firstRoute: "First Route",
+      secondSection: "Second Section",
+      secondRoute: "Second Route",
+      thirdRoute: "Third Route",
+      fourthRoute: "Fourth Route",
     },
   },
 } as const;

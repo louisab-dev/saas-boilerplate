@@ -30,6 +30,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useI18n } from "@/locales/client";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { useTheme } from "next-themes";
@@ -37,6 +38,7 @@ import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 export function NavUser() {
+  const t = useI18n();
   const { isMobile } = useSidebar();
   const { signOut, getUser } = useAuth();
   const { setTheme } = useTheme();
@@ -56,8 +58,8 @@ export function NavUser() {
         setUser({ email: userData.email ?? "" });
       } catch (error) {
         toast({
-          title: "Error",
-          description: "Failed to fetch user data",
+          title: t("common.error"),
+          description: t("nav.user.fetchError"),
           variant: "destructive",
         });
       }
@@ -113,7 +115,7 @@ export function NavUser() {
               <DropdownMenuItem asChild>
                 <Link href="/pricing" className="flex items-center gap-2">
                   <Sparkles className="size-4" />
-                  <span>Upgrade to Pro</span>
+                  <span>{t("nav.user.upgradePro")}</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -122,26 +124,26 @@ export function NavUser() {
               <DropdownMenuItem asChild>
                 <Link href="/account" className="flex items-center gap-2">
                   <BadgeCheck className="size-4" />
-                  <span>Account</span>
+                  <span>{t("nav.user.account")}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/billing" className="flex items-center gap-2">
                   <CreditCard className="size-4" />
-                  <span>Billing</span>
+                  <span>{t("nav.user.billing")}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/settings" className="flex items-center gap-2">
                   <Settings className="size-4" />
-                  <span>Settings</span>
+                  <span>{t("nav.user.settings")}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger className="gap-2">
                   <Sun className="size-4 dark:hidden" />
                   <Moon className="hidden size-4 dark:block" />
-                  <span>Theme</span>
+                  <span>{t("nav.user.theme")}</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent alignOffset={-50}>
                   <DropdownMenuItem
@@ -149,21 +151,21 @@ export function NavUser() {
                     className="gap-2"
                   >
                     <Sun className="size-4" />
-                    <span>Light</span>
+                    <span>{t("nav.user.themeLight")}</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setTheme("dark")}
                     className="gap-2"
                   >
                     <Moon className="size-4" />
-                    <span>Dark</span>
+                    <span>{t("nav.user.themeDark")}</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setTheme("system")}
                     className="gap-2"
                   >
                     <Monitor className="size-4" />
-                    <span>System</span>
+                    <span>{t("nav.user.themeSystem")}</span>
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
@@ -171,7 +173,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut} className="gap-2">
               <LogOut className="size-4" />
-              <span>Log out</span>
+              <span>{t("nav.user.logout")}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

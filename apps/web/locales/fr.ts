@@ -1,4 +1,7 @@
 export default {
+  common: {
+    error: "Erreur",
+  },
   example: {
     client: {
       title: "Exemple de Composant Client",
@@ -62,6 +65,31 @@ export default {
     },
     socials: {
       continueWith: "Ou continuez avec",
+    },
+  },
+  nav: {
+    user: {
+      fetchError: "Échec de la récupération des données utilisateur",
+      upgradePro: "Passer à Pro",
+      account: "Compte",
+      billing: "Facturation",
+      settings: "Paramètres",
+      theme: "Thème",
+      themeLight: "Clair",
+      themeDark: "Sombre",
+      themeSystem: "Système",
+      logout: "Se déconnecter",
+    },
+    sidebar: {
+      toggle: "Basculer la barre latérale",
+    },
+    main: {
+      firstSection: "Première section",
+      firstRoute: "Première route",
+      secondSection: "Deuxième section",
+      secondRoute: "Deuxième route",
+      thirdRoute: "Troisième route",
+      fourthRoute: "Quatrième route",
     },
   },
 } as const;
