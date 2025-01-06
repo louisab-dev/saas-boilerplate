@@ -29,7 +29,8 @@ export const useAuth = () => {
         description: "You have successfully signed up",
         variant: "success",
       });
-      router.push("/signin");
+      const encodedEmail = encodeURIComponent(email);
+      router.push(`/signup/success?email=${encodedEmail}`);
     }
   };
 

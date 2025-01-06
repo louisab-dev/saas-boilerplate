@@ -12,7 +12,6 @@ import { useAuth } from "@/hooks/use-auth";
 
 // Add more if doing a more complex onboarding
 const signupSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
@@ -41,19 +40,6 @@ export function SignUpForm() {
           <p className="text-balance text-muted-foreground">
             Sign up for your account
           </p>
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="name">Full Name</Label>
-          <Input
-            id="name"
-            type="text"
-            {...register("name")}
-          />
-          {errors.name && (
-            <p className="text-sm text-red-500">
-              {errors.name.message}
-            </p>
-          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
