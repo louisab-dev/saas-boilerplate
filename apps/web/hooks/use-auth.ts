@@ -4,33 +4,38 @@ import { useToast } from "./use-toast";
 import { supabase } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
+import { trpc } from "@/lib/trpc/client";
+import { TRPCClientError } from "@trpc/client";
 
 export const useAuth = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const signupMutation = trpc.auth.signup.useMutation();
 
   const signUpWithEmail = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        emailRedirectTo: `${location.origin}/api/auth/callback`,
-      },
-    });
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
+    try {
+      const { success } = await signupMutation.mutateAsync({
+        email,
+        password,
+        redirectTo: `${location.origin}/api/auth/callback`,
       });
-    } else {
-      toast({
-        title: "Success",
-        description: "You have successfully signed up",
-        variant: "success",
-      });
-      const encodedEmail = encodeURIComponent(email);
-      router.push(`/signup/success?email=${encodedEmail}`);
+      if (success) {
+        toast({
+          title: "Success",
+          description: "You have successfully signed up",
+          variant: "success",
+        });
+        const encodedEmail = encodeURIComponent(email);
+        router.push(`/signup/success?email=${encodedEmail}`);
+      }
+    } catch (error) {
+      if (error instanceof TRPCClientError) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
     }
   };
 

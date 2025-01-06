@@ -3,6 +3,7 @@ import { z } from "zod";
 export const signUpSchema = z.object({
   email: z.string(),
   password: z.string(),
+  redirectTo: z.string(),
 });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;

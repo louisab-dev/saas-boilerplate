@@ -11,7 +11,7 @@ export class AuthService {
   }
 
   async signup(input: SignUpSchema): Promise<SignUpResponseSchema> {
-    const { email, password } = input;
+    const { email, password, redirectTo } = input;
 
     // Check that the email is not already taken
     const emailTaken = await this.ctx.prisma.user.findUnique({
@@ -30,11 +30,9 @@ export class AuthService {
       email: email,
       password: password,
       options: {
-        emailRedirectTo: `${env.API_URL}/api/auth/callback`,
+        emailRedirectTo: redirectTo,
       },
     });
-
-    console.log("The created user: ", data);
 
     if (error) {
       throw new TRPCError({
