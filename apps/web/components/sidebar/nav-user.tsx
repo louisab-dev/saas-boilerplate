@@ -11,7 +11,7 @@ import {
   Sun,
   User,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,11 +34,13 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { signOut, getUser } = useAuth();
   const { setTheme } = useTheme();
+  const { toast } = useToast();
 
   const [user, setUser] = useState({
     email: "",
@@ -53,12 +55,16 @@ export function NavUser() {
         }
         setUser({ email: userData.email ?? "" });
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch user data",
+          variant: "destructive",
+        });
       }
     };
 
     fetchUser();
-  }, [getUser]);
+  }, []);
 
   return (
     <SidebarMenu>

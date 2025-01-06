@@ -92,11 +92,9 @@ export function SidebarToggle(
   );
 }
 
-type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
-  user: User;
-};
+type AppSidebarProps = React.ComponentProps<typeof Sidebar>;
 
-export function AppSidebar({ user, ...props }: AppSidebarProps) {
+export function AppSidebar({ ...props }: AppSidebarProps) {
   const { toggleSidebar } = useSidebar();
 
   return (
