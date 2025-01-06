@@ -54,13 +54,17 @@ export function ResetPasswordForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl font-bold">{t("auth.passwordResetConfirm.title")}</h1>
+          <h1 className="text-2xl font-bold">
+            {t("auth.passwordResetConfirm.title")}
+          </h1>
           <p className="text-balance text-muted-foreground">
             {t("auth.passwordResetConfirm.description")}
           </p>
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">{t("auth.passwordResetConfirm.newPasswordLabel")}</Label>
+          <Label htmlFor="password">
+            {t("auth.passwordResetConfirm.newPasswordLabel")}
+          </Label>
           <Input
             id="password"
             type="password"
@@ -74,11 +78,15 @@ export function ResetPasswordForm() {
           )}
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="confirm-password">{t("auth.passwordResetConfirm.confirmPasswordLabel")}</Label>
+          <Label htmlFor="confirm-password">
+            {t("auth.passwordResetConfirm.confirmPasswordLabel")}
+          </Label>
           <Input
             id="confirm-password"
             type="password"
-            placeholder={t("auth.passwordResetConfirm.confirmPasswordPlaceholder")}
+            placeholder={t(
+              "auth.passwordResetConfirm.confirmPasswordPlaceholder",
+            )}
             {...register("confirmPassword")}
           />
           {errors.confirmPassword && (
@@ -91,3 +99,6 @@ export function ResetPasswordForm() {
           {t("auth.passwordResetConfirm.submitButton")}
         </Button>
       </div>
+    </form>
+  );
+}
