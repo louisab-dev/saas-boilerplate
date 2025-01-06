@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@my/db": "workspace:*",
+    "@supabase/supabase-js": "^2.47.10",
     "@trpc/server": "^10.45.1",
     "jose": "^5.9.6",
     "superjson": "^1.13.1",

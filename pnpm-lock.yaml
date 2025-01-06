@@ -229,6 +229,9 @@ importers:
       '@my/db':
         specifier: workspace:*
         version: link:../db
+      '@supabase/supabase-js':
+        specifier: ^2.47.10
+        version: 2.47.10
       '@trpc/server':
         specifier: ^10.45.1
         version: 10.45.2
