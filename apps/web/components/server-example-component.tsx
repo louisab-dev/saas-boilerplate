@@ -1,4 +1,3 @@
-import { serverClient } from "@/lib/trpc/server";
 import {
   Card,
   CardContent,
@@ -7,10 +6,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { api } from "@/lib/trpc/server";
 import { getI18n } from "@/locales/server";
 
 export async function ServerExampleComponent() {
-  const data = await serverClient.example.hello("Test");
+  const data = await api.example.hello.query("Test");
   const t = await getI18n();
 
   return (
