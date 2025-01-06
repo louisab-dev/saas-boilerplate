@@ -42,7 +42,9 @@ export async function updateSession(request: NextRequest) {
     !user &&
     !request.nextUrl.pathname.startsWith("/signin") &&
     !request.nextUrl.pathname.startsWith("/signup") &&
-    !request.nextUrl.pathname.startsWith("/reset-password")
+    !request.nextUrl.pathname.startsWith("/reset-password-request") &&
+    !request.nextUrl.pathname.startsWith("/reset-password/error") &&
+    !request.nextUrl.pathname.startsWith("/confirm-email")
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
@@ -51,8 +53,13 @@ export async function updateSession(request: NextRequest) {
   }
 
   // if the user is logged in, redirect if they are trying to access the login page
-  if (user && request.nextUrl.pathname.startsWith("/login")) {
-    console.log("user is logged in");
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith("/signin") ||
+      request.nextUrl.pathname.startsWith("/signup") ||
+      request.nextUrl.pathname.startsWith("/reset-password-request") ||
+      request.nextUrl.pathname.startsWith("/reset-password/error"))
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
