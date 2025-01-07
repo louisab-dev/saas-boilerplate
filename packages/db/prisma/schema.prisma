@@ -30,4 +30,5 @@ model User {
   updatedAt DateTime @updatedAt
   email     String   @unique
   isAdmin   Boolean  @default(false)
+  name      String?
 }

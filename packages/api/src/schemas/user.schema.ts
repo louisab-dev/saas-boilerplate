@@ -1,7 +1,9 @@
 import { UserModel } from "@my/db";
 import { z } from "zod";
 
-export const updateProfileSchema = UserModel.pick({});
+export const updateProfileSchema = UserModel.pick({
+  name: true,
+});
 
 export const onboardingMandatoryFieldsSchema = UserModel.pick({});
 
