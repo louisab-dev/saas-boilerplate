@@ -150,3 +150,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📜 License
 
 This project is licensed under the MIT License.
+
+## Known Issues
+
+- when using a server component that uses the tRPC server client, there will be
+  a prisma log issue mentionning a Query Engine missing. Because of this we
+  cannot access a tRPC procedure that would run a prisma operation. This can
+  still be done in a client component (using the classic tRPC client) with any
+  issues. I think this could be fixed by copying the prisma generated files to
+  the runner in the apps/web/Dockerfile
