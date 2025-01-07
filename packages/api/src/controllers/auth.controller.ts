@@ -12,4 +12,8 @@ export class AuthController {
   async signup(input: SignUpSchema): Promise<SignUpResponseSchema> {
     return this.authService.signup(input);
   }
+
+  async deleteUser(input: { userId: string }): Promise<boolean> {
+    return this.authService.deleteUser(input);
+  }
 }

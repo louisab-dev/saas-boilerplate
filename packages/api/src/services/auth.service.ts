@@ -6,8 +6,13 @@ import { env } from "../env";
 
 export class AuthService {
   private supabase;
+  private supabaseAdmin;
   constructor(private ctx: Context) {
     this.supabase = createClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!, {});
+    this.supabaseAdmin = createClient(
+      env.SUPABASE_URL!,
+      env.SUPABASE_SERVICE_ROLE_KEY!,
+    );
   }
 
   async signup(input: SignUpSchema): Promise<SignUpResponseSchema> {
@@ -58,5 +63,26 @@ export class AuthService {
     });
 
     return { success: true, user };
+  }
+
+  async deleteUser(input: { userId: string }): Promise<boolean> {
+    const { userId } = input;
+
+    // Delete supabase user
+    const { error } = await this.supabaseAdmin.auth.admin.deleteUser(userId);
+
+    if (error) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: error.message,
+      });
+    }
+
+    // Delete user from database
+    await this.ctx.prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return true;
   }
 }
