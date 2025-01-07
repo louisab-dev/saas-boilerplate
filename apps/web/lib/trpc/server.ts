@@ -5,7 +5,8 @@ import { callProcedure } from "@trpc/server";
 import { observable } from "@trpc/server/observable";
 import { type TRPCErrorResponse } from "@trpc/server/rpc";
 import { headers } from "next/headers";
-import { type AppRouter, appRouter, createTRPCContext } from "@my/api";
+import { type AppRouter } from "@my/api";
+import { appRouter, createTRPCContext } from "@my/api/server";
 import superJson from "superjson";
 
 export type TRPCContext = Awaited<ReturnType<typeof createTRPCContext>>;
