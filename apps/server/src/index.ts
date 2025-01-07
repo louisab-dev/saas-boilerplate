@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { createTRPCContext } from "@my/api";
-import { appRouter } from "@my/api";
+import { appRouter, createTRPCContext } from "@my/api/server";
 import { renderTrpcPanel } from "trpc-panel";
 import { initRateLimiter } from "./middleware/rate-limiter";
 import { basicAuth } from "./middleware/basic-auth";
@@ -47,7 +46,7 @@ async function startServer() {
     }),
   );
 
-  // email verification
+  // email verification (only used with an EXPO app that doesn't support logging the user from the email confirmation link with a callback)
   app.get("/api/email-verification", async (req, res) => {
     res.send(getSuccessHTML());
   });
