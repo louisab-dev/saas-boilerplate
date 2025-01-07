@@ -1,9 +1,10 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
-import * as jose from "jose";
 import superJson from "superjson";
 import { prisma } from "@my/db";
+import { createClient } from "@supabase/supabase-js";
+import { env } from "./env";
 
 type User = {
   id: string;
@@ -22,21 +23,21 @@ export const createTRPCContext = async ({
 }: CreateExpressContextOptions): Promise<Context> => {
   let userId: string | undefined;
 
-  if (!process.env.AUTH_JWT_SECRET) {
-    throw new Error("Missing AUTH_JWT_SECRET environment variable");
-  }
+  const supabase = createClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!);
 
-  // Handle authorization header
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const accessToken = authHeader.split("Bearer ").pop();
     if (accessToken) {
       try {
-        const { payload } = await jose.jwtVerify(
-          accessToken,
-          new TextEncoder().encode(process.env.AUTH_JWT_SECRET),
-        );
-        userId = payload.sub;
+        const {
+          data: { user: supabaseUser },
+          error,
+        } = await supabase.auth.getUser(accessToken);
+        if (error) {
+          console.error("Error getting user:", error.message);
+        }
+        userId = supabaseUser?.id;
       } catch (error) {
         if (error instanceof Error) {
           console.error("Error parsing JWT", error.message);
