@@ -1,10 +1,11 @@
 import rateLimit from "express-rate-limit";
 import RedisStore from "rate-limit-redis";
 import { createClient } from "redis";
+import { env } from "../env";
 
 const initRateLimiter = async () => {
   const redisClient = createClient({
-    url: process.env.REDIS_URL || "redis://localhost:6379",
+    url: env.REDIS_URL || "redis://localhost:6379",
     socket: {
       connectTimeout: 10000,
     },
