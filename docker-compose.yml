@@ -19,7 +19,7 @@ services:
     container_name: prisma-studio
     build: 
       context: .
-      dockerfile: apps/server/Dockerfile
+      dockerfile: packages/db/Dockerfile
     ports:
       - "5555:5555"  # Prisma Studio default port
     environment:
