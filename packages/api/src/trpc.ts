@@ -32,17 +32,9 @@ export const createTRPCContext = async ({
       try {
         const {
           data: { user: supabaseUser },
-          error,
         } = await supabase.auth.getUser(accessToken);
-        if (error) {
-          console.error("Error getting user:", error.message);
-        }
         userId = supabaseUser?.id;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error parsing JWT", error.message);
-        }
-      }
+      } catch (error) {}
     }
   }
 
