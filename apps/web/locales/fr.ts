@@ -1,6 +1,10 @@
 export default {
   common: {
     error: "Erreur",
+    loading: "Chargement...",
+    ready: "Prêt",
+    success: "Succès",
+    notAvailable: "Introuvable",
   },
   example: {
     client: {
@@ -103,5 +107,13 @@ export default {
       thirdRoute: "Troisième route",
       fourthRoute: "Quatrième route",
     },
+  },
+  user: {
+    id: "ID",
+    email: "Email",
+    name: "Nom",
+    namePlaceholder: "Entrez un nouveau nom",
+    updateName: "Mettre à jour le nom",
+    successfulUpdate: "Nom mis à jour avec succès",
   },
 } as const;
