@@ -76,7 +76,7 @@ async function startServer() {
   const port = env.API_PORT;
   app.listen(port, () => {
     console.log(
-      `🚀 Server ready at http://localhost:${port}, API_URL=${env.API_URL}, NODE_ENV=${env.NODE_ENV}`,
+      `🚀 Server ready at http://localhost:${port}, panel at http://localhost:${port}/api/panel`,
     );
   });
 }
