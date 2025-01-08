@@ -11,14 +11,14 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.1",
+    "@prisma/client": "^6.0.1",
     "zod": "^3.22.2",
     "zod-prisma": "^0.5.4"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "prisma": "^5.7.1",
+    "prisma": "^6.0.1",
     "typescript": "^5.3.3"
   }
 }
