@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useI18n } from "@/locales/client";
+import { MobileHeader } from "./mobile-header";
 
 function getSidebarItems() {
   const t = useI18n();
@@ -94,20 +95,23 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
   const sidebarItems = getSidebarItems();
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="flex flex-col gap-2">
-        <div className="flex items-center justify-between w-full">
-          <SidebarTop toggleSidebar={toggleSidebar} />
-          <SidebarToggle toggleSidebar={toggleSidebar} />
-        </div>
-      </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={sidebarItems} />
-      </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
+    <>
+      <MobileHeader />
+      <Sidebar collapsible="icon" {...props}>
+        <SidebarHeader className="flex flex-col gap-2">
+          <div className="flex items-center justify-between w-full">
+            <SidebarTop toggleSidebar={toggleSidebar} />
+            <SidebarToggle toggleSidebar={toggleSidebar} />
+          </div>
+        </SidebarHeader>
+        <SidebarContent>
+          <NavMain items={sidebarItems} />
+        </SidebarContent>
+        <SidebarFooter>
+          <NavUser />
+        </SidebarFooter>
+        <SidebarRail />
+      </Sidebar>
+    </>
   );
 }
