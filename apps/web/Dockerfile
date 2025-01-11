@@ -17,8 +17,10 @@ RUN pnpm install --frozen-lockfile
 # Copy all source files
 COPY . .
 
-# Generate Prisma Client
-RUN pnpm --filter db run db:generate
+# Build prisma client (WORKAROUND: it should be working with just pnpm --filter db run db:generate, but it's not)
+WORKDIR /app/packages/db
+RUN npm install -g prisma zod-prisma typescript
+RUN npx prisma generate
 
 # Next.js build
 ENV NEXT_TELEMETRY_DISABLED=1
