@@ -1,0 +1,14 @@
+# the docker-compose file is used for the coolify deployments and do not need the ports mapping, in fact it could cause some ports conflict so they are disabled. We use this file to setup the port mappings for local deployments
+services:
+  postgres:
+    ports:
+      - "5432:5432"
+  studio:
+    ports:
+      - "5555:5555"
+  web:
+    ports:
+      - "3000:3000"
+  api:
+    ports:
+      - "4000:4000"
